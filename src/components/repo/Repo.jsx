@@ -10,7 +10,7 @@ const Repo = () => {
 
   // TRY THIS FIRST: Remove the extra "/repo" if your router already starts with it
   // If this still 404s, try "http://localhost:3000" (the root)
-  const API_BASE_URL = "http://localhost:3000"; 
+  const API_BASE_URL = "http://54.198.44.49:3000"; 
 
   const fetchRepos = async () => {
     try {

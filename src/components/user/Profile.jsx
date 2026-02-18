@@ -14,7 +14,7 @@ const Profile = () => {
   const { setCurrentUser } = useAuth();
 
   // Consolidating API base for consistency
-  const API_BASE_URL = "http://54.198.44.49:3000/";
+  const API_BASE_URL = "http://54.198.44.49:3000";
 
   useEffect(() => {
     const fetchUserDetails = async () => {
