@@ -19,10 +19,12 @@ const Signup = () => {
     try {
       setLoading(true);
 
-      const res = await axios.post("http://54.198.44.49:3000/signup", {
+      // 🔹 CHANGE: Correct backend URL with port 3000
+      const API_URL = "http://54.198.44.49:3000"; // Node backend
+      const res = await axios.post(`${API_URL}/signup`, {
         email,
-        password,
         username,
+        password,
       });
 
       localStorage.setItem("token", res.data.token);
