@@ -1,0 +1,139 @@
+/* Container Layout */
+.repo-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  color: #24292f;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 600;
+  border-bottom: 1px solid #d0d7de;
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+}
+
+/* Create Section - Updated for multi-input support */
+.create-repo-section {
+  background-color: #f6f8fa;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.create-form {
+  display: flex;
+  flex-direction: column; /* Changed to column to fit name + description nicely */
+  gap: 12px;
+}
+
+.repo-input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  background-color: #ffffff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.repo-input:focus {
+  border-color: #0969da;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.3);
+}
+
+.btn-create {
+  align-self: flex-start; /* Keeps button from stretching full width */
+  background-color: #1f883d;
+  color: white;
+  font-weight: 600;
+  padding: 8px 20px;
+  border: 1px solid rgba(27, 31, 36, 0.15);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-create:hover {
+  background-color: #1a7f37;
+}
+
+/* Repository List */
+.repo-list {
+  list-style: none;
+  padding: 0;
+}
+
+.repo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Aligns items to top for longer descriptions */
+  padding: 20px 0;
+  border-bottom: 1px solid #d0d7de;
+}
+
+.repo-info {
+  flex: 1;
+}
+
+.repo-info strong {
+  display: block;
+  font-size: 16px;
+  color: #0969da;
+  margin-bottom: 4px;
+  cursor: pointer;
+}
+
+.repo-info strong:hover {
+  text-decoration: underline;
+}
+
+/* Description Styling */
+.repo-info p {
+  margin: 0;
+  font-size: 14px;
+  color: #57606a;
+  line-height: 1.5;
+}
+
+.no-desc {
+  font-style: italic;
+  color: #8c959f !important;
+}
+
+/* Action Buttons */
+.repo-actions {
+  display: flex;
+  gap: 8px;
+  margin-left: 20px;
+}
+
+.btn-delete {
+  background-color: #ffffff;
+  color: #cf222e;
+  border: 1px solid #d0d7de;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-delete:hover {
+  background-color: #cf222e;
+  color: #ffffff;
+  border-color: #cf222e;
+}
+
+/* Loading/Empty State */
+.loading-text {
+  text-align: center;
+  color: #57606a;
+  padding: 40px;
+  font-size: 14px;
+}

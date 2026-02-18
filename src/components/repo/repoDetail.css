@@ -1,0 +1,53 @@
+.repo-header {
+  padding: 16px 32px;
+  background-color: #0d1117;
+}
+
+.repo-title h2 {
+  font-size: 20px;
+  font-weight: 400;
+  color: #58a6ff;
+}
+
+.bold-name {
+  font-weight: 600;
+  color: #f0f6fc;
+}
+
+.repo-nav-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 0 32px;
+  border-bottom: 1px solid #30363d;
+  background-color: #0d1117;
+}
+
+.nav-tab {
+  background: none;
+  border: none;
+  color: #f0f6fc;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  position: relative;
+  border-bottom: 2px solid transparent;
+}
+
+.nav-tab.active {
+  font-weight: 600;
+  border-bottom: 2px solid #f78166;
+}
+
+.nav-tab:hover:not(.active) {
+  background-color: #1c2128;
+  border-radius: 6px 6px 0 0;
+}
+
+.counter {
+  background-color: #30363d;
+  color: #f0f6fc;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-size: 12px;
+  margin-left: 4px;
+}

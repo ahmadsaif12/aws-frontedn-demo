@@ -1,0 +1,148 @@
+/* --- Base Container --- */
+.profile-container {
+  background-color: #0d1117;
+  min-height: 100vh;
+  color: #c9d1d9;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+/* --- Navigation / Primer Overrides --- */
+.profile-container [aria-label="Profile Navigation"] {
+  border-bottom: 1px solid #30363d;
+  background-color: #0d1117;
+  padding: 0 32px;
+}
+
+/* --- Layout Structure --- */
+.profile-page-wrapper {
+  display: flex;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px 16px;
+  gap: 32px;
+}
+
+/* --- Sidebar Section --- */
+.user-profile-section {
+  /* Reduced width to match smaller image */
+  width: 220px; 
+  flex-shrink: 0;
+}
+
+/* CLEAN GITHUB AVATAR (Small Size) */
+.profile-image-container {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.profile-avatar {
+  /* Adjusted to a smaller, cleaner width */
+  width: 180px; 
+  height: 180px;
+  border-radius: 50%;
+  border: 1px solid #30363d;
+  background-color: #161b22;
+  object-fit: cover;
+  display: block;
+}
+
+/* --- Typography (Scaled down slightly for smaller sidebar) --- */
+.user-info {
+  padding: 8px 0;
+}
+
+.user-info h3 {
+  font-size: 22px; /* Smaller font for smaller image */
+  font-weight: 600;
+  line-height: 1.25;
+  margin: 0;
+  color: #f0f6fc;
+}
+
+.user-id-sub {
+  font-size: 16px; /* Scaled down */
+  font-style: normal;
+  font-weight: 300;
+  color: #8b949e;
+  margin-top: 2px;
+}
+
+.follower-stats {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #8b949e;
+}
+
+.follower-stats strong {
+  color: #f0f6fc;
+  font-weight: 600;
+}
+
+/* --- Main Content Area --- */
+.content-section {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.heat-map-container {
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 16px;
+  background-color: #0d1117;
+}
+
+.heat-map-container h4 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #f0f6fc;
+}
+
+/* --- Simple Logout Button --- */
+.logout-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background-color: #21262d;
+  color: #f85149; 
+  border: 1px solid #30363d;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.logout-fab:hover {
+  background-color: #30363d;
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+  .profile-page-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .user-profile-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .profile-avatar {
+    width: 150px;
+    height: 150px;
+  }
+
+  .follower-stats {
+    justify-content: center;
+  }
+}
