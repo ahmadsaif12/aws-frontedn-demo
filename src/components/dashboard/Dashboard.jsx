@@ -13,7 +13,7 @@ const Dashboard = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const API_BASE_URL = "http://localhost:3000/repo"; 
+  const API_BASE_URL = "http://54.198.44.49:3000/repo"; 
 
   useEffect(() => {
     const userId = localStorage.getItem("userId");
