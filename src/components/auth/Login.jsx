@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../authContext";
 import { Link } from "react-router-dom";
-
-// 🔹 FIX 1: Import all needed components directly
-import { Box, PageHeader, Button } from "@primer/react";
 import "./auth.css";
 import logo from "../../assets/github-mark-white.svg";
 
@@ -16,18 +13,12 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     if (e) e.preventDefault();
-
     try {
       setLoading(true);
       const API_URL = "http://54.198.44.49:3000"; 
-      const res = await axios.post(`${API_URL}/login`, {
-        email,
-        password,
-      });
-
+      const res = await axios.post(`${API_URL}/login`, { email, password });
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("userId", res.data.userId);
-
       setCurrentUser(res.data.userId);
       window.location.href = "/";
     } catch (err) {
@@ -46,14 +37,10 @@ const Login = () => {
 
       <div className="login-box-wrapper">
         <div className="login-heading">
-          {/* 🔹 FIX 3: Removed "Primer." prefix since we used named imports */}
-          <Box sx={{ padding: 1 }}>
-            <PageHeader>
-              <PageHeader.TitleArea>
-                <PageHeader.Title>Sign In</PageHeader.Title>
-              </PageHeader.TitleArea>
-            </PageHeader>
-          </Box>
+          {/* Replaced Primer with standard HTML */}
+          <div style={{ padding: '8px', textAlign: 'center' }}>
+             <h2 style={{ fontSize: '24px', fontWeight: '400', color: '#adbac7' }}>Sign In</h2>
+          </div>
         </div>
 
         <form className="login-box" onSubmit={handleLogin}>
@@ -82,20 +69,29 @@ const Login = () => {
             />
           </div>
 
-          <Button
-            variant="primary"
+          <button
             className="login-btn"
             disabled={loading}
             type="submit"
-            sx={{ width: '100%', mt: 3 }}
+            style={{ 
+                width: '100%', 
+                marginTop: '16px', 
+                backgroundColor: '#238636', 
+                color: 'white',
+                border: '1px solid rgba(240,246,252,0.1)',
+                padding: '10px',
+                borderRadius: '6px',
+                fontWeight: '600',
+                cursor: loading ? 'not-allowed' : 'pointer'
+            }}
           >
-            {loading ? "Verifying..." : "Login"}
-          </Button>
+            {loading ? "Verifying..." : "Sign in"}
+          </button>
         </form>
 
         <div className="pass-box">
           <p>
-            New to GitHub? <Link to="/signup">Create an account</Link>
+            New to GitHub? <Link to="/signup" style={{color: '#539bf5'}}>Create an account</Link>
           </p>
         </div>
       </div>
