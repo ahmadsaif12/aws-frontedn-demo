@@ -3,8 +3,14 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  optimizeDeps: {
-    // This is the "magic fix" for the SyntaxError and Box undefined errors
-    exclude: ['@primer/react']
-  }
+  build: {
+    rollupOptions: {
+      // This tells Rollup how to handle the Primer library exports
+      external: [],
+    },
+    commonjsOptions: {
+      include: [/node_modules/],
+      transformMixedEsModules: true,
+    },
+  },
 })

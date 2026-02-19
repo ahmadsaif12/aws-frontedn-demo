@@ -4,7 +4,7 @@ import { useAuth } from "../../authContext";
 import { Link, useNavigate } from "react-router-dom"; 
 
 // 🔹 FIX 1: Import exactly what you use
-import { Box, PageHeader, Button } from "@primer/react";
+import { Box, PageHeader, Button } from "@primer/react/lib-esm";
 import "./auth.css";
 import logo from "../../assets/github-mark-white.svg";
 
