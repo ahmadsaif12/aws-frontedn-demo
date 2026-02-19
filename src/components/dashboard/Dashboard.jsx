@@ -13,7 +13,8 @@ const Dashboard = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const API_BASE_URL = "54.198.44.49:3000/repo"; 
+  // 🔹 FIX 1: Added http:// protocol
+  const API_BASE_URL = "http://54.198.44.49:3000/repo"; 
 
   useEffect(() => {
     const userId = localStorage.getItem("userId");
@@ -75,7 +76,7 @@ const Dashboard = () => {
       if (response.ok) {
         const resData = await response.json();
         const addedRepo = {
-          _id: resData.repositoryID || resData._id,
+          _id: resData._id || resData.repositoryID,
           name: newRepoName,
           description: newRepoDesc,
         };
@@ -110,7 +111,6 @@ const Dashboard = () => {
     <div className="dashboard-container">
       <Navbar />
       <section id="dashboard">
-        {/* Left Sidebar */}
         <aside className="suggested-repos">
           <h3>Suggested</h3>
           {suggestedRepositories.slice(0, 5).map((repo) => (
@@ -126,7 +126,6 @@ const Dashboard = () => {
           ))}
         </aside>
 
-        {/* Main Feed */}
         <main className="main-content">
           <div className="main-header">
             <h2>Your Repositories</h2>
@@ -189,19 +188,12 @@ const Dashboard = () => {
           </div>
         </main>
 
-        {/* Right Sidebar - Upcoming Events */}
         <aside className="upcoming-events">
           <h3>Upcoming Events</h3>
           <ul>
-            <li>
-              <p>Tech Conference - Dec 15</p>
-            </li>
-            <li>
-              <p>Developer Meetup - Dec 25</p>
-            </li>
-            <li>
-              <p>React Summit - Jan 5</p>
-            </li>
+            <li><p>Tech Conference - Dec 15</p></li>
+            <li><p>Developer Meetup - Dec 25</p></li>
+            <li><p>React Summit - Jan 5</p></li>
           </ul>
         </aside>
       </section>

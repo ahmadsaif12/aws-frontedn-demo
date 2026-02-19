@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../authContext";
-import { Link, useNavigate } from "react-router-dom"; // Use navigate for cleaner transitions
+import { Link, useNavigate } from "react-router-dom"; 
 
-
+// 🔹 FIX 1: Import exactly what you use
 import { Box, PageHeader, Button } from "@primer/react";
 import "./auth.css";
 import logo from "../../assets/github-mark-white.svg";
@@ -15,7 +15,7 @@ const Signup = () => {
   const [loading, setLoading] = useState(false);
 
   const { setCurrentUser } = useAuth();
-  const navigate = useNavigate(); // Initialize navigation
+  const navigate = useNavigate(); 
 
   const handleSignup = async (e) => {
     if (e) e.preventDefault();
@@ -23,11 +23,7 @@ const Signup = () => {
     try {
       setLoading(true);
       
-      /**
-       * CRITICAL FIX: 
-       * Must include 'http://'. Without it, the browser treats the IP as a 
-       * local folder path (e.g., https://amplify-url.com/54.198.44.49...).
-       */
+      // 🔹 FIX 2: Added http:// so it's a valid absolute URL
       const API_URL = "http://54.198.44.49:3000"; 
       
       const res = await axios.post(`${API_URL}/signup`, {
@@ -36,18 +32,15 @@ const Signup = () => {
         username,
       });
 
-      // Store user session
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("userId", res.data.userId);
 
       setCurrentUser(res.data.userId);
-      
-      // Navigate to home instead of forcing a full page refresh
       navigate("/"); 
 
     } catch (err) {
       console.error("Signup Error:", err);
-      alert("Signup Failed! Ensure your EC2 Security Group allows traffic on Port 3000.");
+      alert("Signup Failed! Check if Port 3000 is open in your EC2 Security Group.");
     } finally {
       setLoading(false);
     }
@@ -61,14 +54,14 @@ const Signup = () => {
 
       <div className="login-box-wrapper">
         <div className="login-heading">
-          {/* Primer components will render correctly now that main.jsx has ThemeProvider */}
-          <Primer.Box sx={{ padding: 1 }}>
-            <Primer.PageHeader>
-              <Primer.PageHeader.TitleArea>
-                <Primer.PageHeader.Title>Sign Up</Primer.PageHeader.Title>
-              </Primer.PageHeader.TitleArea>
-            </Primer.PageHeader>
-          </Primer.Box>
+          {/* 🔹 FIX 3: Removed "Primer." prefix to match named imports */}
+          <Box sx={{ padding: 1 }}>
+            <PageHeader>
+              <PageHeader.TitleArea>
+                <PageHeader.Title>Sign Up</PageHeader.Title>
+              </PageHeader.TitleArea>
+            </PageHeader>
+          </Box>
         </div>
 
         <form className="login-box" onSubmit={handleSignup}>
@@ -111,7 +104,7 @@ const Signup = () => {
             />
           </div>
 
-          <Primer.Button
+          <Button
             variant="primary"
             className="login-btn"
             disabled={loading}
@@ -119,7 +112,7 @@ const Signup = () => {
             sx={{ width: '100%', mt: 3 }}
           >
             {loading ? "Creating account..." : "Signup"}
-          </Primer.Button>
+          </Button>
         </form>
 
         <div className="pass-box">

@@ -15,7 +15,7 @@ const Issue = () => {
   // Updated to include the repo context if your backend supports filtering by repo
   // const API_BASE_URL = "http://localhost:3000/issue"; 
 
-  const API_BASE_URL ="54.198.44.49:3000/issue"; 
+  const API_BASE_URL ="http://54.198.44.49:3000/issue"; 
   const fetchIssues = async () => {
     try {
       // If your backend is set up to filter issues by repo, update this URL

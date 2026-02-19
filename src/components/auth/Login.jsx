@@ -3,11 +3,10 @@ import axios from "axios";
 import { useAuth } from "../../authContext";
 import { Link } from "react-router-dom";
 
+// 🔹 FIX 1: Import all needed components directly
 import { Box, PageHeader, Button } from "@primer/react";
 import "./auth.css";
 import logo from "../../assets/github-mark-white.svg";
-console.log("Primer Library:", Primer);
-console.log("Box Component:", Primer.Box);
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -16,12 +15,11 @@ const Login = () => {
   const { setCurrentUser } = useAuth();
 
   const handleLogin = async (e) => {
-    // Prevent default form submission behavior
     if (e) e.preventDefault();
 
     try {
       setLoading(true);
-      const API_URL = "54.198.44.49:3000"; 
+      const API_URL = "http://54.198.44.49:3000"; 
       const res = await axios.post(`${API_URL}/login`, {
         email,
         password,
@@ -34,7 +32,7 @@ const Login = () => {
       window.location.href = "/";
     } catch (err) {
       console.error("Login Error:", err);
-      alert("Login Failed! Ensure your backend is running and matches HTTPS if deployed.");
+      alert("Login Failed! Check console for Mixed Content errors.");
     } finally {
       setLoading(false);
     }
@@ -48,17 +46,16 @@ const Login = () => {
 
       <div className="login-box-wrapper">
         <div className="login-heading">
-          {/* Use Primer. prefix to avoid "Box is not defined" errors */}
-          <Primer.Box sx={{ padding: 1 }}>
-            <Primer.PageHeader>
-              <Primer.PageHeader.TitleArea>
-                <Primer.PageHeader.Title>Sign In</Primer.PageHeader.Title>
-              </Primer.PageHeader.TitleArea>
-            </Primer.PageHeader>
-          </Primer.Box>
+          {/* 🔹 FIX 3: Removed "Primer." prefix since we used named imports */}
+          <Box sx={{ padding: 1 }}>
+            <PageHeader>
+              <PageHeader.TitleArea>
+                <PageHeader.Title>Sign In</PageHeader.Title>
+              </PageHeader.TitleArea>
+            </PageHeader>
+          </Box>
         </div>
 
-        {/* 🔹 CHANGE: Wrapped in <form> for better accessibility and "Enter" key support */}
         <form className="login-box" onSubmit={handleLogin}>
           <div>
             <label className="label" htmlFor="Email">Email address</label>
@@ -85,7 +82,7 @@ const Login = () => {
             />
           </div>
 
-          <Primer.Button
+          <Button
             variant="primary"
             className="login-btn"
             disabled={loading}
@@ -93,7 +90,7 @@ const Login = () => {
             sx={{ width: '100%', mt: 3 }}
           >
             {loading ? "Verifying..." : "Login"}
-          </Primer.Button>
+          </Button>
         </form>
 
         <div className="pass-box">
