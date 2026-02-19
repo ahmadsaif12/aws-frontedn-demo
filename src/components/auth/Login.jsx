@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import * as Primer from "@primer/react";
 import "./auth.css";
 import logo from "../../assets/github-mark-white.svg";
+console.log("Primer Library:", Primer);
+console.log("Box Component:", Primer.Box);
 
 const Login = () => {
   const [email, setEmail] = useState("");
