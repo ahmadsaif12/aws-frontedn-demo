@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "../../authContext";
-import { Link } from "react-router-dom";
+
+// import { PageHeader,Box,Button } from "@primer/react";
+import * as Primer from "@primer/react";
 import "./auth.css";
+
 import logo from "../../assets/github-mark-white.svg";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -18,24 +22,22 @@ const Signup = () => {
 
     try {
       setLoading(true);
-
-      // 🔹 CHANGE: Correct backend URL with port 3000
-      const API_URL = "http://54.198.44.49:3000"; // Node backend
-      const res = await axios.post(`${API_URL}/signup`, {
-        email,
-        username,
-        password,
+      const res = await axios.post("http://54.198.44.49:3000/signup", {
+        email: email,
+        password: password,
+        username: username,
       });
 
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("userId", res.data.userId);
 
       setCurrentUser(res.data.userId);
+      setLoading(false);
+
       window.location.href = "/";
     } catch (err) {
       console.error(err);
       alert("Signup Failed!");
-    } finally {
       setLoading(false);
     }
   };
@@ -47,44 +49,65 @@ const Signup = () => {
       </div>
 
       <div className="login-box-wrapper">
-        <h2 className="form-title">Create your account</h2>
+        <div className="login-heading">
+          <Box sx={{ padding: 1 }}>
+            <PageHeader>
+              <PageHeader.TitleArea variant="large">
+                <PageHeader.Title>Sign Up</PageHeader.Title>
+              </PageHeader.TitleArea>
+            </PageHeader>
+          </Box>
+        </div>
 
-        <form className="login-box" onSubmit={handleSignup}>
-          <label className="label">Username</label>
-          <input
-            className="input"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+        <div className="login-box">
+          <div>
+            <label className="label">Username</label>
+            <input
+              autoComplete="off"
+              name="Username"
+              id="Username"
+              className="input"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
 
-          <label className="label">Email address</label>
-          <input
-            className="input"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+          <div>
+            <label className="label">Email address</label>
+            <input
+              autoComplete="off"
+              name="Email"
+              id="Email"
+              className="input"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
 
-          <label className="label">Password</label>
-          <input
-            className="input"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <div className="div">
+            <label className="label">Password</label>
+            <input
+              autoComplete="off"
+              name="Password"
+              id="Password"
+              className="input"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
 
-          <button
+          <Button
+            variant="primary"
             className="login-btn"
             disabled={loading}
-            type="submit"
+            onClick={handleSignup}
           >
-            {loading ? "Creating account..." : "Sign up"}
-          </button>
-        </form>
+            {loading ? "Loading..." : "Signup"}
+          </Button>
+        </div>
 
         <div className="pass-box">
           <p>
