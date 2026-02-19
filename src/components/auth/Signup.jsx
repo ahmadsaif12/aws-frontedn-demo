@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../authContext";
+import { Link } from "react-router-dom";
 
-// import { PageHeader,Box,Button } from "@primer/react";
+// Using Namespace import to prevent "Box is not defined" SyntaxErrors in Vite 7
 import * as Primer from "@primer/react";
 import "./auth.css";
-
 import logo from "../../assets/github-mark-white.svg";
-import { Link } from "react-router-dom";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -18,26 +17,27 @@ const Signup = () => {
   const { setCurrentUser } = useAuth();
 
   const handleSignup = async (e) => {
-    e.preventDefault();
+    // Prevent default form submission and page refresh
+    if (e) e.preventDefault();
 
     try {
       setLoading(true);
+      // NOTE: Ensure your backend handles HTTPS if your frontend is on Amplify
       const res = await axios.post("http://54.198.44.49:3000/signup", {
-        email: email,
-        password: password,
-        username: username,
+        email,
+        password,
+        username,
       });
 
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("userId", res.data.userId);
 
       setCurrentUser(res.data.userId);
-      setLoading(false);
-
       window.location.href = "/";
     } catch (err) {
-      console.error(err);
-      alert("Signup Failed!");
+      console.error("Signup Error:", err);
+      alert("Signup Failed! Check console for Mixed Content or CORS errors.");
+    } finally {
       setLoading(false);
     }
   };
@@ -50,64 +50,67 @@ const Signup = () => {
 
       <div className="login-box-wrapper">
         <div className="login-heading">
-          <Box sx={{ padding: 1 }}>
-            <PageHeader>
-              <PageHeader.TitleArea variant="large">
-                <PageHeader.Title>Sign Up</PageHeader.Title>
-              </PageHeader.TitleArea>
-            </PageHeader>
-          </Box>
+          {/* Using Primer prefix to ensure Box is defined */}
+          <Primer.Box sx={{ padding: 1 }}>
+            <Primer.PageHeader>
+              <Primer.PageHeader.TitleArea>
+                <Primer.PageHeader.Title>Sign Up</Primer.PageHeader.Title>
+              </Primer.PageHeader.TitleArea>
+            </Primer.PageHeader>
+          </Primer.Box>
         </div>
 
-        <div className="login-box">
+        {/* Wrapped in a <form> for better accessibility and "Enter" key support */}
+        <form className="login-box" onSubmit={handleSignup}>
           <div>
-            <label className="label">Username</label>
+            <label className="label" htmlFor="Username">Username</label>
             <input
-              autoComplete="off"
-              name="Username"
+              autoComplete="username"
               id="Username"
               className="input"
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              required
             />
           </div>
 
           <div>
-            <label className="label">Email address</label>
+            <label className="label" htmlFor="Email">Email address</label>
             <input
-              autoComplete="off"
-              name="Email"
+              autoComplete="email"
               id="Email"
               className="input"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
 
           <div className="div">
-            <label className="label">Password</label>
+            <label className="label" htmlFor="Password">Password</label>
             <input
-              autoComplete="off"
-              name="Password"
+              autoComplete="new-password"
               id="Password"
               className="input"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </div>
 
-          <Button
+          <Primer.Button
             variant="primary"
             className="login-btn"
             disabled={loading}
-            onClick={handleSignup}
+            type="submit" // Triggers handleSignup via form onSubmit
+            sx={{ width: '100%', mt: 3 }}
           >
-            {loading ? "Loading..." : "Signup"}
-          </Button>
-        </div>
+            {loading ? "Creating account..." : "Signup"}
+          </Primer.Button>
+        </form>
 
         <div className="pass-box">
           <p>
