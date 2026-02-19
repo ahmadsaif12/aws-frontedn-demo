@@ -24,7 +24,7 @@ const Login = () => {
       setLoading(true);
       
       // 🔹 CHANGE: Point to /login instead of /signup
-      const API_URL = "http://54.198.44.49:3000"; 
+      const API_URL = "54.198.44.49:3000"; 
       const res = await axios.post(`${API_URL}/login`, {
         email,
         password,

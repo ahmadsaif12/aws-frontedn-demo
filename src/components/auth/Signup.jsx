@@ -23,7 +23,7 @@ const Signup = () => {
     try {
       setLoading(true);
       // NOTE: Ensure your backend handles HTTPS if your frontend is on Amplify
-      const res = await axios.post("http://54.198.44.49:3000/signup", {
+      const res = await axios.post("54.198.44.49:3000/signup", {
         email,
         password,
         username,
