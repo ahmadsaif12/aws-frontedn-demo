@@ -1,16 +1,16 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import path from 'path'
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  optimizeDeps: {
-    // This forces Vite to pre-bundle these specific paths correctly
-    include: ['@primer/react'],
-  },
-  build: {
-    commonjsOptions: {
-      include: [/node_modules/],
+  resolve: {
+    alias: {
+      // This forces Vite to use the ESM version directly
+      '@primer/react': path.resolve(__dirname, 'node_modules/@primer/react/lib-esm/index.js'),
     },
+  },
+  optimizeDeps: {
+    include: ['@primer/react'],
   },
 })
