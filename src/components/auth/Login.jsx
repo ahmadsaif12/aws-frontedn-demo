@@ -3,8 +3,7 @@ import axios from "axios";
 import { useAuth } from "../../authContext";
 import { Link } from "react-router-dom";
 
-// Using Namespace import to resolve Vite 7 / React 19 export issues
-import * as Primer from "@primer/react";
+import { Box, PageHeader, Button } from "@primer/react";
 import "./auth.css";
 import logo from "../../assets/github-mark-white.svg";
 console.log("Primer Library:", Primer);
@@ -22,8 +21,6 @@ const Login = () => {
 
     try {
       setLoading(true);
-      
-      // 🔹 CHANGE: Point to /login instead of /signup
       const API_URL = "54.198.44.49:3000"; 
       const res = await axios.post(`${API_URL}/login`, {
         email,

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../authContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Use navigate for cleaner transitions
 
-// Using Namespace import to prevent "Box is not defined" SyntaxErrors in Vite 7
-import * as Primer from "@primer/react";
+
+import { Box, PageHeader, Button } from "@primer/react";
 import "./auth.css";
 import logo from "../../assets/github-mark-white.svg";
 
@@ -15,28 +15,39 @@ const Signup = () => {
   const [loading, setLoading] = useState(false);
 
   const { setCurrentUser } = useAuth();
+  const navigate = useNavigate(); // Initialize navigation
 
   const handleSignup = async (e) => {
-    // Prevent default form submission and page refresh
     if (e) e.preventDefault();
 
     try {
       setLoading(true);
-      // NOTE: Ensure your backend handles HTTPS if your frontend is on Amplify
-      const res = await axios.post("54.198.44.49:3000/signup", {
+      
+      /**
+       * CRITICAL FIX: 
+       * Must include 'http://'. Without it, the browser treats the IP as a 
+       * local folder path (e.g., https://amplify-url.com/54.198.44.49...).
+       */
+      const API_URL = "http://54.198.44.49:3000"; 
+      
+      const res = await axios.post(`${API_URL}/signup`, {
         email,
         password,
         username,
       });
 
+      // Store user session
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("userId", res.data.userId);
 
       setCurrentUser(res.data.userId);
-      window.location.href = "/";
+      
+      // Navigate to home instead of forcing a full page refresh
+      navigate("/"); 
+
     } catch (err) {
       console.error("Signup Error:", err);
-      alert("Signup Failed! Check console for Mixed Content or CORS errors.");
+      alert("Signup Failed! Ensure your EC2 Security Group allows traffic on Port 3000.");
     } finally {
       setLoading(false);
     }
@@ -50,7 +61,7 @@ const Signup = () => {
 
       <div className="login-box-wrapper">
         <div className="login-heading">
-          {/* Using Primer prefix to ensure Box is defined */}
+          {/* Primer components will render correctly now that main.jsx has ThemeProvider */}
           <Primer.Box sx={{ padding: 1 }}>
             <Primer.PageHeader>
               <Primer.PageHeader.TitleArea>
@@ -60,7 +71,6 @@ const Signup = () => {
           </Primer.Box>
         </div>
 
-        {/* Wrapped in a <form> for better accessibility and "Enter" key support */}
         <form className="login-box" onSubmit={handleSignup}>
           <div>
             <label className="label" htmlFor="Username">Username</label>
@@ -105,7 +115,7 @@ const Signup = () => {
             variant="primary"
             className="login-btn"
             disabled={loading}
-            type="submit" // Triggers handleSignup via form onSubmit
+            type="submit"
             sx={{ width: '100%', mt: 3 }}
           >
             {loading ? "Creating account..." : "Signup"}

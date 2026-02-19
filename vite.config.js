@@ -3,12 +3,8 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  build: {
-    commonjsOptions: { 
-      transformMixedEsModules: true,
-    },
-  },
-  server: {
-    historyApiFallback: true,
+  optimizeDeps: {
+    // This is the "magic fix" for the SyntaxError and Box undefined errors
+    exclude: ['@primer/react']
   }
 })
